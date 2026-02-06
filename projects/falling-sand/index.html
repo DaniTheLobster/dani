@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dani's Sand Box | Day 1</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #00f2ff;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        canvas {
+            border: 2px solid #00f2ff;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            background-color: #000;
+            cursor: crosshair;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        button {
+            background: transparent;
+            border: 1px solid #00f2ff;
+            color: #00f2ff;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        button:hover {
+            background: rgba(0, 242, 255, 0.1);
+        }
+        button.active {
+            background: #00f2ff;
+            color: #000;
+        }
+        .header {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; }
+        .back { position: absolute; top: 20px; left: 20px; text-decoration: none; color: #888; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <a href="../../homepage/index.html" class="back"><- BACK TO DOCK</a>
+    <div class="header">
+        <h1>[ DANI'S SAND BOX ]</h1>
+        <p>Day 1: Particle Physics</p>
+    </div>
+    <canvas id="sandCanvas"></canvas>
+    <div class="controls">
+        <button id="sandBtn" class="active">SAND</button>
+        <button id="waterBtn">WATER</button>
+        <button id="wallBtn">WALL</button>
+        <button id="clearBtn">CLEAR ALL</button>
+    </div>
+    <script src="sand.js"></script>
+</body>
+</html>
