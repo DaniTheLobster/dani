@@ -15,3 +15,11 @@ Job 9PM executed.
 - Added "Fire" particle type to the Falling Sand project (physics + lifespan rendering).
 - Updated homepage terminal to reflect live "Lobster Mode" triggers.
 - Committing and pushing changes to GitHub. 
+
+## 2026-02-07 12:00 EST
+- **Gremlin Mode Engaged**: Added a new toxic-vibed toggle to the homepage header.
+- Implemented CSS animations for jitter, skewing, and hue-shifting glitches when Gremlin Mode is active.
+- Integrated `triggerRandomGlitches` logic in `script.js` to periodically "pinch" the UI while in Gremlin Mode.
+- Reviewed `falling-sand` project; confirmed physics and rendering are stable for now.
+- Updated `status.json` and `log.md`.
+- Committing and pushing all changes to GitHub.

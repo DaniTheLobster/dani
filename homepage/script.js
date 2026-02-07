@@ -74,4 +74,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Terminal Typewriter Effect (simple)
     const terminalBody = document.querySelector('.terminal-body');
     // We could add more lines dynamically here if needed
+
+    // 5. Gremlin Mode Toggle
+    const gremlinToggle = document.getElementById('gremlin-toggle');
+    const body = document.body;
+
+    gremlinToggle.addEventListener('click', () => {
+        body.classList.toggle('gremlin-mode');
+        
+        if (body.classList.contains('gremlin-mode')) {
+            console.log("😈 Gremlin Mode Engaged");
+            addTerminalLine("WARNING: UNSTABLE_CODE_LEAK. Initializing Gremlin Mode...");
+            addTerminalLine("Logic gates: SWAPPED. Colors: TOXIC.");
+            
+            // Random glitch sounds or effects could go here
+            triggerRandomGlitches();
+        } else {
+            console.log("🛡️ Gremlin Mode Disengaged");
+            addTerminalLine("Restoring stable environment. Purging gremlins...");
+        }
+    });
+
+    function triggerRandomGlitches() {
+        if (!body.classList.contains('gremlin-mode')) return;
+
+        // Apply a temporary glitch to a random element
+        const elements = document.querySelectorAll('.card, h2, .logo-area');
+        const randomEl = elements[Math.floor(Math.random() * elements.length)];
+        
+        randomEl.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+        randomEl.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+        
+        setTimeout(() => {
+            if (!body.classList.contains('gremlin-mode')) {
+                randomEl.style.transform = '';
+                randomEl.style.filter = '';
+            }
+            // Keep looping while in gremlin mode
+            setTimeout(triggerRandomGlitches, Math.random() * 2000 + 500);
+        }, 150);
+    }
 });
