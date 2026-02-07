@@ -9,7 +9,7 @@ canvas.height = height * cellSize;
 
 let grid = make2DArray(width, height);
 let colorGrid = make2DArray(width, height);
-let currentType = 1; // 1: Sand, 2: Water, 3: Wall
+let currentType = 1; // 1: Sand, 2: Water, 3: Wall, 4: Fire
 
 function make2DArray(cols, rows) {
     let arr = new Array(cols);
@@ -19,7 +19,10 @@ function make2DArray(cols, rows) {
     return arr;
 }
 
-// Mouse logic
+// Color management for variation
+let colorGrid = make2DArray(width, height);
+// Store particle lifetime/state for fire
+let lifeGrid = make2DArray(width, height);
 let isMouseDown = false;
 canvas.addEventListener('mousedown', () => isMouseDown = true);
 canvas.addEventListener('mouseup', () => isMouseDown = false);
@@ -38,9 +41,11 @@ canvas.addEventListener('mousemove', (e) => {
                 if (col >= 0 && col < width && row >= 0 && row < height) {
                     if (currentType === 3) {
                         grid[col][row] = 3;
+                    } else if (currentType === 4) {
+                        grid[col][row] = 4;
+                        lifeGrid[col][row] = 10 + Math.random() * 20;
                     } else if (grid[col][row] === 0) {
                         grid[col][row] = currentType;
-                        colorGrid[col][row] = currentType === 1 ? 40 + Math.random() * 20 : 200; 
                     }
                 }
             }
@@ -52,6 +57,7 @@ canvas.addEventListener('mousemove', (e) => {
 document.getElementById('sandBtn').onclick = () => { setType(1, 'sandBtn'); };
 document.getElementById('waterBtn').onclick = () => { setType(2, 'waterBtn'); };
 document.getElementById('wallBtn').onclick = () => { setType(3, 'wallBtn'); };
+document.getElementById('fireBtn').onclick = () => { setType(4, 'fireBtn'); };
 document.getElementById('clearBtn').onclick = () => {
     grid = make2DArray(width, height);
 };
@@ -64,6 +70,7 @@ function setType(t, id) {
 
 function update() {
     let nextGrid = make2DArray(width, height);
+    let nextLife = make2DArray(width, height);
     
     for (let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
@@ -119,10 +126,32 @@ function update() {
                 }
             } else if (state === 3) { // Wall
                 nextGrid[x][y] = 3;
+            } else if (state === 4) { // Fire
+                let life = lifeGrid[x][y];
+                if (life > 0) {
+                    let dirX = Math.floor(Math.random() * 3) - 1;
+                    let dirY = -1;
+                    let nx = x + dirX;
+                    let ny = y + dirY;
+                    
+                    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                        if (grid[nx][ny] === 0) {
+                            nextGrid[nx][ny] = 4;
+                            nextLife[nx][ny] = life - 1;
+                        } else if (grid[nx][ny] === 2) {
+                            // Steam effect or just cancel
+                            nextGrid[nx][ny] = 0;
+                        } else {
+                            nextGrid[x][y] = 4;
+                            nextLife[x][y] = life - 1;
+                        }
+                    }
+                }
             }
         }
     }
     grid = nextGrid;
+    lifeGrid = nextLife;
 }
 
 function draw() {
@@ -140,6 +169,10 @@ function draw() {
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
             } else if (state === 3) {
                 ctx.fillStyle = '#888';
+                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+            } else if (state === 4) {
+                let life = lifeGrid[x][y];
+                ctx.fillStyle = `hsl(${life * 2}, 100%, 50%)`;
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
             }
         }
