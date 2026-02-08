@@ -1,0 +1,40 @@
+functionsDirectory = "C:\\Users\\curre\\.openclaw\\workspace\\dani\\netlify\\functions"
+functionsDirectoryOrigin = "default"
+plugins = []
+headers = []
+redirects = []
+
+[build]
+publish = "C:\\Users\\curre\\.openclaw\\workspace\\dani\\homepage"
+publishOrigin = "config"
+functions = "C:\\Users\\curre\\.openclaw\\workspace\\dani\\netlify\\functions"
+
+[[build.environment]]
+NODE_VERSION = "20"
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[forms]
+
+[forms.contact-form]
+name = "Contact Form"
+
+[forms.contact-form.notifications]
+to = "danielthelober@gmail.com"
+from = "danielthelober@gmail.com"
+subject = "New Uplink Signal: {{formData.subject}}"
+body = "Name: {{formData.name}}\nEmail: {{formData.email}}\nSubject: {{formData.subject}}\n\nMessage:\n{{formData.message}}\n  "
+
+[functions]
+
+[functions."*"]

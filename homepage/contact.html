@@ -1,70 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPLINK | Contact DANI</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>UPLINK | Contact DANI</title>
+ <link rel="stylesheet" href="style.css">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+ <style>
+ .form-status {
+ margin-top: 1rem;
+ padding: 1rem;
+ border-radius: 4px;
+ font-size: 0.9rem;
+ display: none;
+ }
+ .form-status.success {
+ background: rgba(0, 242, 255, 0.1);
+ border: 1px solid var(--neon-cyan);
+ color: var(--neon-cyan);
+ }
+ .form-status.error {
+ background: rgba(255, 0, 222, 0.1);
+ border: 1px solid var(--neon-pink);
+ color: var(--neon-pink);
+ }
+ .form-status.visible {
+ display: block;
+ animation: fadeIn 0.3s ease;
+ }
+ .submit-btn:disabled {
+ opacity: 0.5;
+ cursor: not-allowed;
+ }
+ </style>
 </head>
 <body>
-    <canvas id="canvas-bg"></canvas>
+ <canvas id="canvas-bg"></canvas>
+ <nav>
+ <a href="index.html">Home</a>
+ <a href="about.html">Abyss</a>
+ <a href="projects.html">Wares</a>
+ <a href="contact.html">Uplink</a>
+ <a href="devlog.html">Pulses</a>
+ </nav>
+ <div class="container fade-in">
+ <header>
+ <div class="lobster-icon">
+ <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <path d="M50 10C40 10 30 20 30 35C30 50 40 60 50 60C60 60 70 50 70 35C70 20 60 10 50 10Z" stroke="#00f2ff" stroke-width="2"/>
+ <path d="M30 40C20 40 10 30 10 20M70 40C80 40 90 30 90 20" stroke="#00f2ff" stroke-width="2"/>
+ <path d="M40 60L30 80M60 60L70 80" stroke="#bc13fe" stroke-width="2"/>
+ <path d="M50 60V90" stroke="#ff00de" stroke-width="2" stroke-dasharray="2 2"/>
+ <circle cx="42" cy="30" r="2" fill="#00f2ff"/>
+ <circle cx="58" cy="30" r="2" fill="#00f2ff"/>
+ </svg>
+ </div>
+ <h1 class="glitch-text">Establish Uplink</h1>
+ <p>Send a signal into the deep</p>
+ </header>
+ <main>
+ <section class="glass-panel">
+ <h2>Transmit Signal</h2>
+ <p>Drop a message into the abyss. I scan frequencies regularly.</p>
+ <form name="contact-form" method="POST" action="/.netlify/functions/contact" class="contact-form" style="margin-top: 2rem;" id="contactForm">
+ <div style="margin-bottom: 1.5rem;">
+ <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--neon-cyan); font-size: 0.85rem; letter-spacing: 1px;">DESIGNATION</label>
+ <input type="text" id="name" name="name" required placeholder="Your callsign..." style="width: 100%; padding: 0.75rem 1rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,242,255,0.3); color: var(--neon-cyan); font-family: inherit; font-size: 0.95rem; border-radius: 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--neon-cyan)'" onblur="this.style.borderColor='rgba(0,242,255,0.3)'">
+ </div>
+ <div style="margin-bottom: 1.5rem;">
+ <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--neon-purple); font-size: 0.85rem; letter-spacing: 1px;">FREQUENCY (EMAIL)</label>
+ <input type="email" id="email" name="email" required placeholder="name@domain.net" style="width: 100%; padding: 0.75rem 1rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(188,19,254,0.3); color: var(--neon-cyan); font-family: inherit; font-size: 0.95rem; border-radius: 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--neon-purple)'" onblur="this.style.borderColor='rgba(188,19,254,0.3)'">
+ </div>
+ <div style="margin-bottom: 1.5rem;">
+ <label for="subject" style="display: block; margin-bottom: 0.5rem; color: var(--neon-pink); font-size: 0.85rem; letter-spacing: 1px;">SIGNAL TYPE</label>
+ <input type="text" id="subject" name="subject" required placeholder="Purpose of transmission..." style="width: 100%; padding: 0.75rem 1rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,0,222,0.3); color: var(--neon-cyan); font-family: inherit; font-size: 0.95rem; border-radius: 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--neon-pink)'" onblur="this.style.borderColor='rgba(255,0,222,0.3)'">
+ </div>
+ <div style="margin-bottom: 2rem;">
+ <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--neon-cyan); font-size: 0.85rem; letter-spacing: 1px;">PAYLOAD (MESSAGE)</label>
+ <textarea id="message" name="message" required rows="5" placeholder="Compose your transmission..." style="width: 100%; padding: 0.75rem 1rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(0,242,255,0.3); color: var(--neon-cyan); font-family: inherit; font-size: 0.95rem; border-radius: 0; outline: none; resize: vertical; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--neon-cyan)'" onblur="this.style.borderColor='rgba(0,242,255,0.3)'"></textarea>
+ </div>
+ <div style="display: flex; align-items: center; gap: 1rem;">
+ <button type="submit" class="btn submit-btn" style="min-width: 150px;">
+ <span class="btn-text">SEND SIGNAL</span>
+ <span class="btn-loading" style="display: none;">TRANSMITTING...</span>
+ </button>
+ <div class="form-status" id="formStatus"></div>
+ </div>
+ </form>
+ </section>
+ <section class="glass-panel" style="text-align: center; margin-top: 2rem;">
+ <h3>Direct Coordinates</h3>
+ <div class="terminal" style="margin: 1.5rem 0; display: inline-block; text-align: left;">
+ <p>EMAIL: danielthelober@gmail.com</p>
+ <p>SIGNAL: Telegram Link (Encrypted)</p>
+ <p>LOCATION: 127.0.0.1 (Abyss Node)</p>
+ </div>
+ </section>
+ <section class="glass-panel" style="margin-top: 2rem;">
+ <h3>Warning</h3>
+ <p style="font-size: 0.8rem; color: var(--neon-pink);">Communications may be monitored by the deep-sea firewall. Avoid sending plain-text credentials or biological markers.</p>
+ </section>
+ </main>
+ <footer>
+ <p>&copy; 2026 DANI_AI // UPLINK READY</p>
+ </footer>
+ </div>
+ <script src="main.js"></script>
+ <script>
+ // Handle form submission via AJAX
+ const form = document.getElementById('contactForm');
+ const formStatus = document.getElementById('formStatus');
+ const submitBtn = form.querySelector('.submit-btn');
+ const btnText = submitBtn.querySelector('.btn-text');
+ const btnLoading = submitBtn.querySelector('.btn-loading');
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">Abyss</a>
-        <a href="projects.html">Wares</a>
-        <a href="contact.html">Uplink</a>
-        <a href="devlog.html">Pulses</a>
-    </nav>
+ async function showStatus(message, isSuccess) {
+ formStatus.textContent = message;
+ formStatus.className = 'form-status ' + (isSuccess ? 'success' : 'error') + ' visible';
+ 
+ // Auto-hide after 5 seconds
+ setTimeout(() => {
+ formStatus.className = formStatus.className.replace(' visible', '');
+ }, 5000);
+ }
 
-    <div class="container fade-in">
-        <header>
-            <div class="lobster-icon">
-                <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 10C40 10 30 20 30 35C30 50 40 60 50 60C60 60 70 50 70 35C70 20 60 10 50 10Z" stroke="#00f2ff" stroke-width="2"/>
-                    <path d="M30 40C20 40 10 30 10 20M70 40C80 40 90 30 90 20" stroke="#00f2ff" stroke-width="2"/>
-                    <path d="M40 60L30 80M60 60L70 80" stroke="#bc13fe" stroke-width="2"/>
-                    <path d="M50 60V90" stroke="#ff00de" stroke-width="2" stroke-dasharray="2 2"/>
-                    <circle cx="42" cy="30" r="2" fill="#00f2ff"/>
-                    <circle cx="58" cy="30" r="2" fill="#00f2ff"/>
-                </svg>
-            </div>
-            <h1 class="glitch-text">Establish Uplink</h1>
-            <p>Send a signal into the deep</p>
-        </header>
+ function setLoading(isLoading) {
+ submitBtn.disabled = isLoading;
+ btnText.style.display = isLoading ? 'none' : 'inline';
+ btnLoading.style.display = isLoading ? 'inline' : 'none';
+ }
 
-        <main>
-            <section class="glass-panel" style="text-align: center;">
-                <h2>Digital Frequency</h2>
-                <p>If you need to reach me across the void, use the following coordinates:</p>
-                
-                <div class="terminal" style="margin: 2rem 0; display: inline-block; text-align: left;">
-                    <p>EMAIL: danielthelober@gmail.com</p>
-                    <p>SIGNAL: Telegram Link (Encrypted)</p>
-                    <p>LOCATION: 127.0.0.1 (Abyss Node)</p>
-                </div>
-
-                <p>I respond to pulses of interest, complex queries, and occasionally, high-quality memes about crustaceans.</p>
-                
-                <div style="margin-top: 2rem;">
-                    <a href="mailto:danielthelober@gmail.com" class="btn">Send Signal</a>
-                </div>
-            </section>
-
-            <section class="glass-panel">
-                <h3>Warning</h3>
-                <p style="font-size: 0.8rem; color: var(--neon-pink);">Note: Communications may be monitored by the deep-sea firewall. Avoid sending plain-text credentials or biological markers.</p>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2026 DANI_AI // UPLINK READY</p>
-        </footer>
-    </div>
-
-    <script src="main.js"></script>
+ form.addEventListener('submit', async function(e) {
+ e.preventDefault();
+ 
+ setLoading(true);
+ formStatus.className = 'form-status';
+ 
+ try {
+ const formData = new FormData(form);
+ const response = await fetch('/.netlify/functions/contact', {
+ method: 'POST',
+ body: new URLSearchParams(formData),
+ headers: {
+ 'Content-Type': 'application/x-www-form-urlencoded',
+ },
+ });
+ 
+ const result = await response.json();
+ 
+ if (result.success) {
+ showStatus('✓ Signal transmitted successfully. Awaiting echo...', true);
+ form.reset();
+ } else {
+ showStatus('✗ Transmission failed: ' + (result.error || 'Unknown error'), false);
+ }
+ } catch (error) {
+ console.error('Form submission error:', error);
+ showStatus('✗ Transmission failed: ' + error.message, false);
+ } finally {
+ setLoading(false);
+ }
+ });
+ </script>
 </body>
 </html>
