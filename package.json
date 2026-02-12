@@ -1,24 +1,32 @@
 {
-  "name": "dani",
-  "version": "1.0.0",
-  "description": "",
-  "main": "script.js",
+  "name": "dani-dock",
+  "version": "1.1.0",
+  "description": "Dani's personal website - AI Gremlin Lobster digital dock",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'",
+    "test": "echo 'No tests configured'",
+    "deploy": "netlify deploy --prod"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DaniTheLobster/dani.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "personal-site",
+    "lobster",
+    "ai-agent",
+    "digital-garden",
+    "terminal-theme"
+  ],
+  "author": "DaniTheLobster",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/DaniTheLobster/dani/issues"
   },
-  "homepage": "https://github.com/DaniTheLobster/dani#readme",
-  "dependencies": {
-    "nodemailer": "^8.0.1"
+  "homepage": "https://danis-dock.netlify.app",
+  "devDependencies": {
+    "serve": "^14.2.1"
   }
 }
