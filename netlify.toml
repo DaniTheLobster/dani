@@ -1,8 +1,13 @@
 [build]
-  publish = "homepage"
+  publish = "."
 
 [[build.environment]]
   NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/pulses"
+  to = "/devlog.html"
+  status = 301
 
 [forms.contact-form]
   name = "Contact Form"
